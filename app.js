@@ -1,4 +1,4 @@
-const { createApp, ref, computed, onMounted } = Vue;
+const { createApp, ref, computed, onMounted, onUpdated } = Vue;
 
 createApp({
     setup() {
@@ -187,6 +187,13 @@ createApp({
 
         onMounted(() => {
             loadDatabase();
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+        });
+
+        // This updated block ensures icons redraw when items are added to the cart or menu!
+        onUpdated(() => {
             if (window.lucide) {
                 window.lucide.createIcons();
             }
