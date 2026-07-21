@@ -51,7 +51,7 @@ window.bakeryDatabase = {
       "purely_veg": true,
       "description": "Sweet and salty perfection highlighted with crisp, crunchy butterscotch nut toppings.",
       "category": "cakes",
-      "image": "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=500&auto=format&fit=crop&q=60"
+      "image": "images/Butterscotch.jpeg"
     },
     {
       "id": 6,
