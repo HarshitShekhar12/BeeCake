@@ -4,7 +4,10 @@ createApp({
     setup() {
         const menuItems = ref([]);
         const dietaryText = ref("100% Purely Veg");
-        const showPaymentModal = ref(false); // Controlled visibility flag for custom secure modal popup
+        const showPaymentModal = ref(false);
+
+        // NEW: Variables to track and filter categories
+        const selectedCategory = ref("All");
 
         const extraAddons = ref([
             { id: 101, name: "Plain Candle", price: 20 },
@@ -32,11 +35,10 @@ createApp({
             name: "",
             phone: "",
             address: "",
-            payMethod: "UPI", // Restricted exclusively to UPI Transfer
+            payMethod: "UPI",
             upiId: "vishakha.choudhary07@okicici"
         });
 
-        // Reads data directly from your local menu-data.js database file object
         const loadDatabase = () => {
             const data = window.bakeryDatabase;
             if (data && data.menu_items) {
@@ -45,7 +47,8 @@ createApp({
                     name: `${item.name} (${item.purely_veg ? 'Pure Veg 🌱' : ''})`,
                     price: item.price_per_pound,
                     desc: item.description,
-                    image: item.image // Seamlessly tracks item local image filenames
+                    image: item.image,
+                    category: item.category || "General" // NEW: Pulls category from database
                 }));
                 
                 if (data.bakery_meta && data.bakery_meta.dietary_standard) {
@@ -57,6 +60,21 @@ createApp({
                 }
             }
         };
+
+        // NEW: Create a dynamic list of unique categories directly from your items
+        const uniqueCategories = computed(() => {
+            const categories = menuItems.value.map(item => item.category);
+            const unique = new Set(categories);
+            return ["All", ...Array.from(unique)];
+        });
+
+        // NEW: Filter the menu grid based on what button the user clicks
+        const filteredMenuItems = computed(() => {
+            if (selectedCategory.value === "All") {
+                return menuItems.value;
+            }
+            return menuItems.value.filter(item => item.category === selectedCategory.value);
+        });
 
         const calculatedCustomPrice = computed(() => {
             if (!customCake.value.flavor) return 0;
@@ -161,7 +179,6 @@ createApp({
             const targetPhone = "7752891455";
             window.open(`https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodeURIComponent(orderSummary)}`, '_blank');
 
-            // Reset UI states completely upon dispatch operation loop execution
             cart.value = [];
             showPaymentModal.value = false;
             isCheckingOut.value = false;
@@ -192,7 +209,6 @@ createApp({
             }
         });
 
-        // This updated block ensures icons redraw when items are added to the cart or menu!
         onUpdated(() => {
             if (window.lucide) {
                 window.lucide.createIcons();
@@ -219,7 +235,11 @@ createApp({
             openPaymentModal,
             confirmPaidOrder,
             sendWhatsAppRequest,
-            removeFromCart
+            removeFromCart,
+            // NEW: Returning the new category variables to the HTML
+            selectedCategory,
+            uniqueCategories,
+            filteredMenuItems
         };
     }
 }).mount('#app');
