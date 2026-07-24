@@ -42,17 +42,35 @@
         <section class="hero">
             <div class="hero-container">
                 <div class="hero-content">
-                    <h1>Sweets Infused with Love & Honey Aesthetics</h1>
-                    <p>Indulge in artisanal bakes crafted meticulously by Vishakha in Patna. From classic sponges to premium custom creations, we bring pure sweetness to your doorstep.</p>
-                    <div class="hero-buttons">
-                        <a href="#menu" class="btn">Explore Menu</a>
-                        <a href="#whatsapp-custom" class="btn btn-secondary">Send WhatsApp Request</a>
+                    
+                    <!-- 1. What do you sell? -->
+                    <h1 style="font-size: 3rem; line-height: 1.2; margin-bottom: 1rem;">
+                        Custom Cakes for Birthdays, Anniversaries & Special Celebrations
+                    </h1>
+                    
+                    <!-- 2. Where are you located? -->
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.2rem; color: var(--honey-dark); font-weight: 600; margin-bottom: 1rem;">
+                        <i data-lucide="map-pin" style="color: var(--honey-gold);"></i>
+                        Located in Patna, Bihar
                     </div>
+                    
+                    <p>Indulge in artisanal bakes crafted meticulously by Vishakha. From classic sponges to premium creations, we bring pure sweetness to your doorstep.</p>
+                    
+                    <!-- 3. How can they order? -->
+                    <div class="hero-buttons" style="margin-top: 2rem;">
+                        <a href="#whatsapp-custom" class="btn" style="background: #25D366; color: white; font-size: 1.1rem; padding: 1rem 2rem; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);">
+                            <i data-lucide="phone"></i> Order on WhatsApp
+                        </a>
+                        <a href="#menu" class="btn btn-secondary" style="font-size: 1.1rem; padding: 1rem 2rem;">
+                            Explore Menu
+                        </a>
+                    </div>
+                    
                 </div>
                 <div class="hero-image-container">
                     <div class="hero-blob"></div>
                     <div class="hero-showcase-frame">
-                        <img src="images/hero section.png" alt="Signature Honey Cake" class="hero-cake-img">
+                        <img src="images/hero section.png" alt="Custom Cakes in Patna" class="hero-cake-img">
                         <div class="hero-badge">
                             <i data-lucide="sparkles" size="14" style="color: var(--honey-gold);"></i>
                             <span>100% Pure Veg 🌱</span>
@@ -61,15 +79,29 @@
                 </div>
             </div>
         </section>
-
+        
         <!-- Dynamic Menu Grid Section -->
         <section class="menu-section" id="menu">
             <div class="section-header">
                 <p>Handcrafted Treats</p>
                 <h2>From Vishakha's Oven</h2>
             </div>
+            
+            <!-- Category Filter Navigation -->
+            <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 2.5rem; flex-wrap: wrap;">
+                <button 
+                    v-for="category in uniqueCategories" 
+                    :key="category"
+                    @click="selectedCategory = category"
+                    :class="['btn', selectedCategory === category ? '' : 'btn-secondary']"
+                    style="padding: 0.5rem 1.2rem; border-radius: 50px; font-size: 0.9rem;"
+                >
+                    {{ category }}
+                </button>
+            </div>
+
             <div class="menu-grid">
-                <div v-for="item in menuItems" :key="item.id" class="product-card">
+                <div v-for="item in filteredMenuItems" :key="item.id" class="product-card">
                     <div class="product-img-container">
                         <img :src="item.image || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500'" :alt="item.name" class="product-cake-img">
                     </div>
@@ -141,7 +173,24 @@
                 </div>
             </div>
         </section>
-
+       <!-- About the Baker Section -->
+        <section class="about-section" id="about" style="padding: 4rem 2rem; background: var(--honey-bg);">
+            <div style="max-width: 800px; margin: 0 auto; text-align: center; background: var(--white); padding: 3rem 2rem; border-radius: 24px; box-shadow: var(--shadow); border: 1px solid rgba(229, 169, 60, 0.15);">
+                
+                <h2 style="font-size: 2.2rem; margin-bottom: 1.2rem; color: var(--honey-dark); font-family: 'Playfair Display', serif;">
+                    Hi, I’m Vishakha 👩‍🍳
+                </h2>
+                
+                <p style="font-size: 1.1rem; color: #5c5243; line-height: 1.8; margin-bottom: 1.5rem;">
+                    I’m a home baker and mother who turned my love for baking into a cake business. Every cake is baked fresh in my home kitchen using quality ingredients and a lot of care. I specialize in eggless cakes and custom birthday cakes that are not only beautiful but also delicious.
+                </p>
+                
+                <p style="font-size: 1.2rem; font-weight: 600; color: var(--honey-dark); font-family: 'Playfair Display', serif; font-style: italic;">
+                    "For me, a cake is not just dessert—it becomes part of your family’s memories. ❤️"
+                </p>
+                
+            </div>
+        </section>
         <!-- Shopping Cart Drawer Panel -->
         <div class="cart-overlay" :class="{ open: isCartOpen }" @click="isCartOpen = false"></div>
         <div class="cart-drawer" :class="{ open: isCartOpen }">
@@ -242,7 +291,7 @@
                 </div>
                 <div class="footer-column">
                     <h4>Order Helpline</h4>
-                    <p>Mobile: +91 7752891455<br>Email: orders@beecake.com</p>
+                    <p>Mobile: +91 7752891455<br>Email:arupskitchen26@gmail.com</p>
                 </div>
             </div>
             <div class="copyright">&copy; 2026 Bee Cake. Elegantly Curated by Vishakha.</div>
