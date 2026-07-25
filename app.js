@@ -6,7 +6,7 @@ createApp({
         const dietaryText = ref("100% Purely Veg");
         const showPaymentModal = ref(false);
 
-        // NEW: Variables to track and filter categories
+        // Variables to track and filter categories
         const selectedCategory = ref("All");
 
         const extraAddons = ref([
@@ -48,7 +48,7 @@ createApp({
                     price: item.price_per_pound,
                     desc: item.description,
                     image: item.image,
-                    category: item.category || "General" // NEW: Pulls category from database
+                    category: item.category || "General"
                 }));
                 
                 if (data.bakery_meta && data.bakery_meta.dietary_standard) {
@@ -61,14 +61,12 @@ createApp({
             }
         };
 
-        // NEW: Create a dynamic list of unique categories directly from your items
         const uniqueCategories = computed(() => {
             const categories = menuItems.value.map(item => item.category);
             const unique = new Set(categories);
             return ["All", ...Array.from(unique)];
         });
 
-        // NEW: Filter the menu grid based on what button the user clicks
         const filteredMenuItems = computed(() => {
             if (selectedCategory.value === "All") {
                 return menuItems.value;
@@ -91,6 +89,17 @@ createApp({
 
         const cartCount = computed(() => cart.value.reduce((total, item) => total + item.quantity, 0));
         const cartTotal = computed(() => cart.value.reduce((total, item) => total + item.totalPrice, 0));
+
+        // GENERATES DYNAMIC UPI INTENT DEEP LINK FOR MOBILE APPS
+        const upiDeepLink = computed(() => {
+            const payeeVpa = encodeURIComponent(checkoutDetails.value.upiId);
+            const payeeName = encodeURIComponent("Bee Cake");
+            const amount = cartTotal.value;
+            const currency = "INR";
+            const transactionNote = encodeURIComponent(`Cake Order for ${checkoutDetails.value.name || 'Customer'}`);
+
+            return `upi://pay?pa=${payeeVpa}&pn=${payeeName}&am=${amount}&cu=${currency}&tn=${transactionNote}`;
+        });
 
         const addToCart = (item) => {
             const existingIndex = cart.value.findIndex(c => c.id === item.id && !c.isCustom);
@@ -158,6 +167,7 @@ createApp({
             showPaymentModal.value = true;
         };
 
+        // Sends the WhatsApp message WITHOUT closing the modal or clearing the cart
         const confirmPaidOrder = () => {
             let orderSummary = `✨ *NEW ORDER RECEIVED - BEE CAKE* ✨\n\n`;
             orderSummary += `👤 *Customer Name:* ${checkoutDetails.value.name}\n`;
@@ -178,9 +188,14 @@ createApp({
 
             const targetPhone = "7752891455";
             window.open(`https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodeURIComponent(orderSummary)}`, '_blank');
+            
+            // Modal and cart remain open intentionally so the user can re-send if needed
+        };
 
-            cart.value = [];
+        // ONLY clears cart and closes modal when the user explicitly clicks the Cross/Cut button
+        const closePaymentModal = () => {
             showPaymentModal.value = false;
+            cart.value = [];
             isCheckingOut.value = false;
             isCartOpen.value = false;
         };
@@ -229,14 +244,15 @@ createApp({
             cartCount,
             cartTotal,
             showPaymentModal,
+            upiDeepLink,
             addToCart,
             addExtraToCart,
             addCustomCakeToCart,
             openPaymentModal,
             confirmPaidOrder,
+            closePaymentModal,
             sendWhatsAppRequest,
             removeFromCart,
-            // NEW: Returning the new category variables to the HTML
             selectedCategory,
             uniqueCategories,
             filteredMenuItems
