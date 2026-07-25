@@ -1,4 +1,4 @@
-const { createApp, ref, computed, onMounted, onUpdated, nextTick } = Vue;
+const { createApp, ref, computed, onMounted, onUpdated, nextTick, watch } = Vue;
 
 createApp({
     setup() {
@@ -49,6 +49,16 @@ createApp({
             upiId: "vishakha.choudhary07@okicici"
         });
 
+        // 🔒 BACKGROUND SCROLL LOCK LOGIC
+        // This watches all modals. If any are open, it locks the background body from scrolling.
+        watch([isCartOpen, showPaymentModal, showCareGuide, activeProduct], () => {
+            if (isCartOpen.value || showPaymentModal.value || showCareGuide.value || activeProduct.value !== null) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+
         const tomorrowDate = computed(() => {
             const today = new Date();
             today.setDate(today.getDate() + 1);
@@ -77,7 +87,6 @@ createApp({
             return ["All", ...Array.from(unique)];
         });
 
-        // Filter handler when clicking an Occasion circle
         const filterByOccasion = (occCategory) => {
             searchQuery.value = "";
             selectedCategory.value = occCategory;
@@ -90,7 +99,6 @@ createApp({
             });
         };
 
-        // Combined Filter: Category + Occasion + Live Search Bar
         const filteredMenuItems = computed(() => {
             return menuItems.value.filter(item => {
                 const matchesCategory = selectedCategory.value === "All" || 
