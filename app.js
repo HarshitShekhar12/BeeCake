@@ -1,42 +1,58 @@
-const { createApp, ref, computed, onMounted, onUpdated } = Vue;
+const { createApp, ref, computed, onMounted, onUpdated, nextTick } = Vue;
 
 createApp({
     setup() {
         const menuItems = ref([]);
         const dietaryText = ref("100% Purely Veg");
+        
+        // Advanced State Management
+        const currentView = ref('home');
         const showPaymentModal = ref(false);
+        const showCareGuide = ref(false);
+        const activeProduct = ref(null);
+        const selectedWeight = ref(1);
 
-        // Variables to track and filter categories
+        // Search & Category State
+        const searchQuery = ref("");
         const selectedCategory = ref("All");
 
-        const extraAddons = ref([
-            { id: 101, name: "Plain Candle", price: 20 },
-            { id: 102, name: "Number Candle", price: 40 },
-            { id: 103, name: "Golden Number Candle", price: 60 },
-            { id: 104, name: "Anniversary Tag", price: 50 },
-            { id: 105, name: "Birthday Tag", price: 50 },
-            { id: 106, name: "Custom Name Tag", price: 80 },
-            { id: 107, name: "Premium Gift Packing", price: 120 }
+        // Occasions Data List
+        const occasions = ref([
+            { name: "Birthday Cakes", category: "Birthday", icon: "cake" },
+            { name: "Wedding Cakes", category: "Wedding", icon: "crown" },
+            { name: "Anniversary", category: "Anniversary", icon: "heart" },
+            { name: "Celebration Cakes", category: "Celebration", icon: "party-popper" }
         ]);
-
+        
         const isCartOpen = ref(false);
         const isCheckingOut = ref(false);
         const cart = ref([]);
-        const whatsappDescription = ref("");
 
-        const customCake = ref({
-            flavor: null,
-            weight: 1.0,
-            addons: [],
-            message: ""
-        });
-
+        // Gallery State
+        const galleryImages = ref([
+            { src: 'https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=500', title: 'Elegant Wedding Tier' },
+            { src: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500', title: 'Jungle Safari Kids Theme' },
+            { src: 'https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=500', title: 'Pastel Floral Anniversary' },
+            { src: 'https://images.unsplash.com/photo-1562777717-b6aff3ce3673?w=500', title: 'Loaded Chocolate Drip' }
+        ]);
+        
+        const pincodeError = ref(false);
         const checkoutDetails = ref({
+            method: 'delivery',
             name: "",
             phone: "",
+            pincode: "",
             address: "",
+            date: "",
+            time: "10:00 AM - 1:00 PM",
             payMethod: "UPI",
             upiId: "vishakha.choudhary07@okicici"
+        });
+
+        const tomorrowDate = computed(() => {
+            const today = new Date();
+            today.setDate(today.getDate() + 1);
+            return today.toISOString().split('T')[0];
         });
 
         const loadDatabase = () => {
@@ -48,16 +64,10 @@ createApp({
                     price: item.price_per_pound,
                     desc: item.description,
                     image: item.image,
-                    category: item.category || "General"
+                    category: item.category || "General",
+                    occasion: item.occasion || "Celebration",
+                    isBestseller: item.is_bestseller || false
                 }));
-                
-                if (data.bakery_meta && data.bakery_meta.dietary_standard) {
-                    dietaryText.value = data.bakery_meta.dietary_standard;
-                }
-                
-                if (menuItems.value.length > 0) {
-                    customCake.value.flavor = menuItems.value[0];
-                }
             }
         };
 
@@ -67,132 +77,127 @@ createApp({
             return ["All", ...Array.from(unique)];
         });
 
-        const filteredMenuItems = computed(() => {
-            if (selectedCategory.value === "All") {
-                return menuItems.value;
-            }
-            return menuItems.value.filter(item => item.category === selectedCategory.value);
-        });
-
-        const calculatedCustomPrice = computed(() => {
-            if (!customCake.value.flavor) return 0;
-            let basePrice = customCake.value.flavor.price * customCake.value.weight;
-            
-            customCake.value.addons.forEach(addon => {
-                if (addon === 'Choco Chips') basePrice += 50;
-                if (addon === 'Honey Drizzle') basePrice += 30;
-                if (addon === 'Fresh Fruits') basePrice += 100;
+        // Filter handler when clicking an Occasion circle
+        const filterByOccasion = (occCategory) => {
+            searchQuery.value = "";
+            selectedCategory.value = occCategory;
+            currentView.value = 'home';
+            nextTick(() => {
+                const menuEl = document.getElementById('menu');
+                if (menuEl) {
+                    menuEl.scrollIntoView({ behavior: 'smooth' });
+                }
             });
-            
-            return Math.round(basePrice);
+        };
+
+        // Combined Filter: Category + Occasion + Live Search Bar
+        const filteredMenuItems = computed(() => {
+            return menuItems.value.filter(item => {
+                const matchesCategory = selectedCategory.value === "All" || 
+                                        item.category === selectedCategory.value || 
+                                        item.occasion === selectedCategory.value;
+                const matchesSearch = item.name.toLowerCase().includes(searchQuery.value.toLowerCase()) || 
+                                      item.desc.toLowerCase().includes(searchQuery.value.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
         });
 
         const cartCount = computed(() => cart.value.reduce((total, item) => total + item.quantity, 0));
         const cartTotal = computed(() => cart.value.reduce((total, item) => total + item.totalPrice, 0));
 
-        // GENERATES DYNAMIC UPI INTENT DEEP LINK FOR MOBILE APPS
         const upiDeepLink = computed(() => {
             const payeeVpa = encodeURIComponent(checkoutDetails.value.upiId);
             const payeeName = encodeURIComponent("Bee Cake");
             const amount = cartTotal.value;
-            const currency = "INR";
-            const transactionNote = encodeURIComponent(`Cake Order for ${checkoutDetails.value.name || 'Customer'}`);
-
-            return `upi://pay?pa=${payeeVpa}&pn=${payeeName}&am=${amount}&cu=${currency}&tn=${transactionNote}`;
+            const transactionNote = encodeURIComponent(`Order for ${checkoutDetails.value.name || 'Customer'}`);
+            return `upi://pay?pa=${payeeVpa}&pn=${payeeName}&am=${amount}&cu=INR&tn=${transactionNote}`;
         });
 
-        const addToCart = (item) => {
-            const existingIndex = cart.value.findIndex(c => c.id === item.id && !c.isCustom);
-            if (existingIndex > -1) {
-                cart.value[existingIndex].quantity += 1;
-                cart.value[existingIndex].totalPrice = cart.value[existingIndex].quantity * item.price;
-            } else {
-                cart.value.push({
-                    id: item.id,
-                    name: item.name,
-                    price: item.price,
-                    quantity: 1,
-                    totalPrice: item.price,
-                    isCustom: false
-                });
-            }
+        const openPDP = (item) => {
+            activeProduct.value = item;
+            selectedWeight.value = 1;
+        };
+
+        const closePDP = () => {
+            activeProduct.value = null;
+        };
+
+        const addActiveProductToCart = () => {
+            if (!activeProduct.value) return;
+            const finalPrice = activeProduct.value.price * selectedWeight.value;
+            cart.value.push({
+                id: Date.now(),
+                name: activeProduct.value.name,
+                price: activeProduct.value.price,
+                quantity: 1,
+                totalPrice: finalPrice,
+                isCustom: false,
+                weight: selectedWeight.value
+            });
+            closePDP();
             isCartOpen.value = true;
         };
 
-        const addExtraToCart = (extra) => {
-            const existingIndex = cart.value.findIndex(c => c.id === extra.id);
-            if (existingIndex > -1) {
-                cart.value[existingIndex].quantity += 1;
-                cart.value[existingIndex].totalPrice = cart.value[existingIndex].quantity * extra.price;
-            } else {
-                cart.value.push({
-                    id: extra.id,
-                    name: extra.name,
-                    price: extra.price,
-                    quantity: 1,
-                    totalPrice: extra.price,
-                    isCustom: false
-                });
-            }
-        };
-
+        const customCake = ref({ flavor: null, weight: 1.0, message: "" });
+        const calculatedCustomPrice = computed(() => {
+            if (!customCake.value.flavor) return 0;
+            return Math.round(customCake.value.flavor.price * customCake.value.weight);
+        });
         const addCustomCakeToCart = () => {
             if (!customCake.value.flavor) return;
-            const calculatedPrice = calculatedCustomPrice.value;
-            const cakeName = `Custom ${customCake.value.flavor.name}`;
-            
             cart.value.push({
                 id: Date.now(),
-                name: cakeName,
-                price: calculatedPrice,
+                name: `Custom ${customCake.value.flavor.name}`,
+                price: calculatedCustomPrice.value,
                 quantity: 1,
-                totalPrice: calculatedPrice,
+                totalPrice: calculatedCustomPrice.value,
                 isCustom: true,
                 weight: customCake.value.weight,
-                message: customCake.value.message,
-                addons: [...customCake.value.addons]
+                message: customCake.value.message
             });
-
             customCake.value.weight = 1.0;
-            customCake.value.addons = [];
             customCake.value.message = "";
             isCartOpen.value = true;
         };
 
+        const checkPincode = () => {
+            if(checkoutDetails.value.pincode && checkoutDetails.value.pincode.trim().length !== 6) {
+                pincodeError.value = true;
+            } else {
+                pincodeError.value = false;
+            }
+        };
+
         const openPaymentModal = () => {
-            if (!checkoutDetails.value.name.trim() || !checkoutDetails.value.phone.trim() || !checkoutDetails.value.address.trim()) {
-                alert("Please fill out all delivery details fields completely before proceeding to payment!");
+            if (!checkoutDetails.value.name || !checkoutDetails.value.phone || !checkoutDetails.value.date) {
+                alert("Please fill out your Name, Phone, and Delivery Date!");
                 return;
             }
             showPaymentModal.value = true;
         };
 
-        // Sends the WhatsApp message WITHOUT closing the modal or clearing the cart
         const confirmPaidOrder = () => {
-            let orderSummary = `✨ *NEW ORDER RECEIVED - BEE CAKE* ✨\n\n`;
-            orderSummary += `👤 *Customer Name:* ${checkoutDetails.value.name}\n`;
-            orderSummary += `📞 *Mobile Number:* ${checkoutDetails.value.phone}\n`;
-            orderSummary += `📍 *Delivery Address:* ${checkoutDetails.value.address}\n`;
-            orderSummary += `💳 *Payment Type:* UPI Secure Transfer Verified\n\n`;
-            orderSummary += `🎂 *Order Basket Details:* \n`;
-
+            let orderSummary = `✨ *NEW ORDER - BEE CAKE* ✨\n\n`;
+            orderSummary += `👤 *Name:* ${checkoutDetails.value.name}\n`;
+            orderSummary += `📞 *Phone:* ${checkoutDetails.value.phone}\n`;
+            orderSummary += `🗓️ *Date:* ${checkoutDetails.value.date} | ⏰ *Time:* ${checkoutDetails.value.time}\n`;
+            
+            if (checkoutDetails.value.method === 'delivery') {
+                orderSummary += `🚚 *Type: Delivery*\n📍 *Address:* ${checkoutDetails.value.address} (${checkoutDetails.value.pincode})\n\n`;
+            } else {
+                orderSummary += `🏪 *Type: Store Pickup (Krishi Nagar)*\n\n`;
+            }
+            
+            orderSummary += `🎂 *Order Details:* \n`;
             cart.value.forEach(item => {
-                orderSummary += `• ${item.name} (x${item.quantity}) - ₹${item.totalPrice}\n`;
-                if (item.isCustom) {
-                    orderSummary += `  └ Size: ${item.weight}lb | Note: "${item.message || 'None'}"\n`;
-                }
+                orderSummary += `• ${item.name} (${item.weight}lb) - ₹${item.totalPrice}\n`;
+                if (item.isCustom && item.message) orderSummary += `  └ Msg: "${item.message}"\n`;
             });
 
-            orderSummary += `\n💰 *Total Amount Paid: ₹${cartTotal.value}*\n\n`;
-            orderSummary += `📌 *Note:* Please send the screenshot of your payment inside this chat window to verify your transaction!`;
-
-            const targetPhone = "7752891455";
-            window.open(`https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodeURIComponent(orderSummary)}`, '_blank');
-            
-            // Modal and cart remain open intentionally so the user can re-send if needed
+            orderSummary += `\n💰 *Total Paid: ₹${cartTotal.value}*\n📌 *Note:* Please attach your payment screenshot!`;
+            window.open(`https://api.whatsapp.com/send?phone=7752891455&text=${encodeURIComponent(orderSummary)}`, '_blank');
         };
 
-        // ONLY clears cart and closes modal when the user explicitly clicks the Cross/Cut button
         const closePaymentModal = () => {
             showPaymentModal.value = false;
             cart.value = [];
@@ -200,62 +205,34 @@ createApp({
             isCartOpen.value = false;
         };
 
-        const sendWhatsAppRequest = () => {
-            if (!whatsappDescription.value.trim()) {
-                alert("Please type out a description of your custom cake before sending.");
-                return;
-            }
-            const targetPhone = "7752891455";
-            const greetingText = `Hello Vishakha! I would like to place a custom cake order request at Bee Cake.\n\n*Description Details*:\n${whatsappDescription.value}`;
-            window.open(`https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodeURIComponent(greetingText)}`, '_blank');
+        const trackOrder = () => {
+            const msg = "Hi Vishakha, could I please get a status update on my recent cake order?";
+            window.open(`https://api.whatsapp.com/send?phone=7752891455&text=${encodeURIComponent(msg)}`, '_blank');
         };
 
         const removeFromCart = (index) => {
             cart.value.splice(index, 1);
-            if (cart.value.length === 0) {
-                isCheckingOut.value = false;
-            }
+            if (cart.value.length === 0) isCheckingOut.value = false;
         };
 
         onMounted(() => {
             loadDatabase();
-            if (window.lucide) {
-                window.lucide.createIcons();
-            }
+            if (window.lucide) window.lucide.createIcons();
         });
 
         onUpdated(() => {
-            if (window.lucide) {
-                window.lucide.createIcons();
-            }
+            if (window.lucide) window.lucide.createIcons();
         });
 
         return {
-            menuItems,
-            dietaryText,
-            extraAddons,
-            isCartOpen,
-            isCheckingOut,
-            cart,
-            customCake,
-            checkoutDetails,
-            whatsappDescription,
-            calculatedCustomPrice,
-            cartCount,
-            cartTotal,
-            showPaymentModal,
-            upiDeepLink,
-            addToCart,
-            addExtraToCart,
-            addCustomCakeToCart,
-            openPaymentModal,
-            confirmPaidOrder,
-            closePaymentModal,
-            sendWhatsAppRequest,
-            removeFromCart,
-            selectedCategory,
-            uniqueCategories,
-            filteredMenuItems
+            menuItems, dietaryText, currentView, showCareGuide,
+            activeProduct, selectedWeight, openPDP, closePDP, addActiveProductToCart,
+            isCartOpen, isCheckingOut, cart, cartCount, cartTotal,
+            customCake, calculatedCustomPrice, addCustomCakeToCart,
+            checkoutDetails, pincodeError, checkPincode, tomorrowDate,
+            showPaymentModal, upiDeepLink, openPaymentModal, confirmPaidOrder, closePaymentModal,
+            trackOrder, removeFromCart, selectedCategory, uniqueCategories, filteredMenuItems,
+            searchQuery, galleryImages, occasions, filterByOccasion
         };
     }
 }).mount('#app');
