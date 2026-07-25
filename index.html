@@ -24,6 +24,7 @@
                     <div class="brand-subtitle">By Vishakha</div>
                 </a>
                 <ul class="nav-links">
+                    <li><a href="#about">About Me</a></li>
                     <li><a href="#menu">Our Menu</a></li>
                     <li><a href="#customise">Design Cake</a></li>
                     <li><a href="#whatsapp-custom">Special Request</a></li>
@@ -49,9 +50,15 @@
                     </h1>
                     
                     <!-- 2. Where are you located? -->
-                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.2rem; color: var(--honey-dark); font-weight: 600; margin-bottom: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.2rem; color: var(--honey-dark); font-weight: 600; margin-bottom: 0.8rem;">
                         <i data-lucide="map-pin" style="color: var(--honey-gold);"></i>
                         Located in Patna, Bihar
+                    </div>
+
+                    <!-- 24-Hour Freshly Baked Lead-Time Badge -->
+                    <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: #FFF5E1; color: var(--honey-dark); padding: 0.5rem 1rem; border-radius: 30px; font-weight: 600; font-size: 0.9rem; border: 1px solid rgba(229, 169, 60, 0.3); margin-bottom: 1.2rem;">
+                        <i data-lucide="clock" size="16" style="color: var(--honey-gold);"></i>
+                        <span><strong>Note:</strong> Please order 24 hours in advance for fresh baking!</span>
                     </div>
                     
                     <p>Indulge in artisanal bakes crafted meticulously by Vishakha. From classic sponges to premium creations, we bring pure sweetness to your doorstep.</p>
@@ -79,7 +86,37 @@
                 </div>
             </div>
         </section>
-        
+
+        <!-- About the Baker Section -->
+        <section class="about-section" id="about" style="padding: 4rem 2rem; background: var(--honey-bg);">
+            <div style="max-width: 800px; margin: 0 auto; text-align: center; background: var(--white); padding: 3rem 2rem; border-radius: 24px; box-shadow: var(--shadow); border: 1px solid rgba(229, 169, 60, 0.15);">
+                
+                <h2 style="font-size: 2.2rem; margin-bottom: 1.2rem; color: var(--honey-dark); font-family: 'Playfair Display', serif;">
+                    Hi, I’m Vishakha 👩‍🍳
+                </h2>
+                
+                <p style="font-size: 1.1rem; color: #5c5243; line-height: 1.8; margin-bottom: 1.5rem;">
+                    I’m a home baker and mother who turned my love for baking into a cake business. Every cake is baked fresh in my home kitchen using quality ingredients and a lot of care. I specialize in eggless cakes and custom birthday cakes that are not only beautiful but also delicious.
+                </p>
+                
+                <p style="font-size: 1.2rem; font-weight: 600; color: var(--honey-dark); font-family: 'Playfair Display', serif; font-style: italic; margin-bottom: 2rem;">
+                    "For me, a cake is not just dessert—it becomes part of your family’s memories. ❤️"
+                </p>
+
+                <!-- 100% Freshly Baked Guarantee Callout -->
+                <div style="padding: 1.2rem 1.5rem; background: #FAF6EE; border-left: 4px solid var(--honey-gold); border-radius: 12px; text-align: left;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--honey-dark); font-size: 1.05rem; margin-bottom: 0.4rem;">
+                        <i data-lucide="sparkles" size="18" style="color: var(--honey-gold);"></i>
+                        100% Freshly Baked Guarantee
+                    </div>
+                    <p style="font-size: 0.95rem; color: #5c5243; line-height: 1.6; margin: 0;">
+                        We don't keep premade cakes sitting in a freezer. Preparation begins strictly after your order is taken, ensuring supreme freshness and taste. <strong>Please place your order at least 24 hours before your event!</strong>
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
         <!-- Dynamic Menu Grid Section -->
         <section class="menu-section" id="menu">
             <div class="section-header">
@@ -160,12 +197,16 @@
                         <span style="color: var(--honey-gold); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">Bespoke Orders</span>
                     </div>
                     <h2>Have a Special Custom Request?</h2>
-                    <p style="margin-bottom: 1.5rem; color: #706553;">Describe your dream cake design, reference themes, flavors, or special shapes below. Submitting will send it straight to Vishakha on WhatsApp!</p>
+                    <p style="margin-bottom: 1rem; color: #706553;">Describe your dream cake design, reference themes, flavors, or special shapes below. Submitting will send it straight to Vishakha on WhatsApp!</p>
                     
                     <div class="form-group">
                         <label>Your Custom Cake Instructions</label>
                         <textarea v-model="whatsappDescription" rows="5" class="form-control-text" placeholder="Describe your cake details here (e.g., 'I want a 2-tier theme cake with pastel pink flowers, vanilla flavor, shaped like a heart for a 5th birthday...')"></textarea>
                     </div>
+
+                    <p style="font-size: 0.85rem; color: #8c7f6b; text-align: center; margin-bottom: 1rem;">
+                        ⚡ <em>Please submit requests at least 24 hours in advance as every cake is freshly prepared upon order placement.</em>
+                    </p>
                     
                     <button class="btn whatsapp-btn" @click="sendWhatsAppRequest">
                         Send to WhatsApp <i data-lucide="send" size="16"></i>
@@ -173,24 +214,7 @@
                 </div>
             </div>
         </section>
-       <!-- About the Baker Section -->
-        <section class="about-section" id="about" style="padding: 4rem 2rem; background: var(--honey-bg);">
-            <div style="max-width: 800px; margin: 0 auto; text-align: center; background: var(--white); padding: 3rem 2rem; border-radius: 24px; box-shadow: var(--shadow); border: 1px solid rgba(229, 169, 60, 0.15);">
-                
-                <h2 style="font-size: 2.2rem; margin-bottom: 1.2rem; color: var(--honey-dark); font-family: 'Playfair Display', serif;">
-                    Hi, I’m Vishakha 👩‍🍳
-                </h2>
-                
-                <p style="font-size: 1.1rem; color: #5c5243; line-height: 1.8; margin-bottom: 1.5rem;">
-                    I’m a home baker and mother who turned my love for baking into a cake business. Every cake is baked fresh in my home kitchen using quality ingredients and a lot of care. I specialize in eggless cakes and custom birthday cakes that are not only beautiful but also delicious.
-                </p>
-                
-                <p style="font-size: 1.2rem; font-weight: 600; color: var(--honey-dark); font-family: 'Playfair Display', serif; font-style: italic;">
-                    "For me, a cake is not just dessert—it becomes part of your family’s memories. ❤️"
-                </p>
-                
-            </div>
-        </section>
+
         <!-- Shopping Cart Drawer Panel -->
         <div class="cart-overlay" :class="{ open: isCartOpen }" @click="isCartOpen = false"></div>
         <div class="cart-drawer" :class="{ open: isCartOpen }">
@@ -256,14 +280,23 @@
         </div>
 
         <!-- Dynamic Payment Popup Modal Box Overlay Container -->
-        <div class="modal-overlay" :class="{ show: showPaymentModal }" @click="showPaymentModal = false"></div>
+        <div class="modal-overlay" :class="{ show: showPaymentModal }" @click="closePaymentModal"></div>
         <div class="payment-modal-box" :class="{ show: showPaymentModal }">
             <div class="modal-header">
                 <h3>UPI Secure Transfer</h3>
-                <button class="close-modal-btn" @click="showPaymentModal = false">&times;</button>
+                <!-- CUT / CROSS BUTTON TO CLOSE AND RESET -->
+                <button class="close-modal-btn" @click="closePaymentModal">&times;</button>
             </div>
             <div class="modal-body">
-                <p class="upi-instruction">Scan this QR code with any UPI app to make your payment:</p>
+                <p class="upi-instruction">Tap below to pay directly using any UPI App (GPay/PhonePe/Paytm):</p>
+                
+                <!-- DIRECT UPI APP REDIRECT BUTTON -->
+                <a :href="upiDeepLink" class="btn" style="background: #0070E0; color: white; width: 100%; justify-content: center; margin-bottom: 1.2rem; text-decoration: none; box-shadow: 0 4px 15px rgba(0,112,224,0.3);">
+                    <i data-lucide="smartphone"></i> Pay ₹{{ cartTotal }} via UPI App
+                </a>
+
+                <p class="upi-instruction" style="margin-bottom: 0.5rem; font-size: 0.8rem; color: #706553;">Or scan QR code manually:</p>
+                
                 <div class="qr-container">
                     <img src="images/scanner.jpeg" alt="UPI Payment QR Scanner" class="upi-qr-img">
                 </div>
@@ -273,7 +306,8 @@
                 </div>
                 <div class="amount-badge">Total Amount: ₹{{ cartTotal }}</div>
                 
-                <button class="btn paid-btn" @click="confirmPaidOrder">Paid</button>
+                <!-- WHATSAPP CONFIRMATION BUTTON (STAYS VISIBLE UNTIL EXPLICITLY CLOSED) -->
+                <button class="btn paid-btn" @click="confirmPaidOrder">Paid / Send Order on WhatsApp</button>
             </div>
         </div>
 
@@ -291,7 +325,7 @@
                 </div>
                 <div class="footer-column">
                     <h4>Order Helpline</h4>
-                    <p>Mobile: +91 7752891455<br>Email:arupskitchen26@gmail.com</p>
+                    <p>Mobile: +91 7752891455<br>Email: bee.cake456@gmail.com<br>FSSAI: 20426001001997</p>
                 </div>
             </div>
             <div class="copyright">&copy; 2026 Bee Cake. Elegantly Curated by Vishakha.</div>
