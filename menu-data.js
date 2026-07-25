@@ -15,25 +15,31 @@ window.bakeryDatabase = {
       "purely_veg": true,
       "description": "Simple & Pure moist sponge base. Perfect to enjoy with tea.",
       "category": "Dry Cakes",
-      "image": "images/dry cake.png" 
+      "occasion": "Celebration",
+      "image": "images/dry cake.png",
+      "is_bestseller": false
     },
     {
       "id": 2,
-      "name": "Vanilla Cake",
+      "name": "Vanilla Birthday Cake",
       "price_per_pound": 350,
       "purely_veg": true,
       "description": "Classic, soft vanilla sponge layers frosted with light, sweet fresh cream.",
       "category": "Vanilla",
-      "image": "images/Vanilla cake.png"
+      "occasion": "Birthday",
+      "image": "images/Vanilla cake.png",
+      "is_bestseller": false
     },
     {
       "id": 3,
-      "name": "Pineapple Cake",
+      "name": "Pineapple Fresh Fruit Cake",
       "price_per_pound": 400,
       "purely_veg": true,
       "description": "Tropical sweetness featuring fresh pineapple chunks and juicy glaze layers.",
       "category": "Fruit",
-      "image": "images/pineapple.png"
+      "occasion": "Birthday",
+      "image": "images/pineapple.png",
+      "is_bestseller": true
     },
     {
       "id": 4,
@@ -42,34 +48,42 @@ window.bakeryDatabase = {
       "purely_veg": true,
       "description": "Rich cocoa cake layers frosted with delicious silky chocolate whipped cream.",
       "category": "Chocolate",
-      "image": "images/Chocolate cake.png"
+      "occasion": "Celebration",
+      "image": "images/Chocolate cake.png",
+      "is_bestseller": false
     },
     {
       "id": 5,
-      "name": "Butter Scotch Cake",
+      "name": "Butterscotch Anniversary Special",
       "price_per_pound": 450,
       "purely_veg": true,
       "description": "Sweet and salty perfection highlighted with crisp, crunchy butterscotch nut toppings.",
       "category": "Butterscotch",
-      "image": "images/Butterscotch.jpeg"
+      "occasion": "Anniversary",
+      "image": "images/Butterscotch.jpeg",
+      "is_bestseller": true
     },
     {
       "id": 6,
-      "name": "Truffle Chocolate Cake",
+      "name": "Truffle Chocolate Wedding Tier",
       "price_per_pound": 650,
       "purely_veg": true,
       "description": "Decadent, deep chocolate layers covered in a smooth dark chocolate ganache glaze.",
       "category": "Chocolate",
-      "image": "images/Chocolate cake 2.png"
+      "occasion": "Wedding",
+      "image": "images/Chocolate cake 2.png",
+      "is_bestseller": true
     },
     {
       "id": 7,
-      "name": "Strawberry Cake",
+      "name": "Strawberry Celebration Cake",
       "price_per_pound": 450,
       "purely_veg": true,
       "description": "Delightful pink cake layers infused with sweet strawberry compote and fresh frosting.",
       "category": "Fruit",
-      "image": "images/strawberry cake.png"
+      "occasion": "Celebration",
+      "image": "images/strawberry cake.png",
+      "is_bestseller": false
     }
   ]
 };
