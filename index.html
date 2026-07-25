@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bee Cake | By Vishakha</title>
-    <!-- Google Fonts -->
+    <title>Bee Cake | Premium Custom Cakes by Vishakha</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Vue 3 CDN -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -19,16 +16,16 @@
         <!-- Sticky Navigation Header -->
         <header>
             <div class="nav-container">
-                <a href="#" class="brand">
+                <a href="#" @click.prevent="currentView = 'home'" class="brand">
                     <div class="brand-title">Bee Cake</div>
                     <div class="brand-subtitle">By Vishakha</div>
                 </a>
                 <ul class="nav-links">
-                    <li><a href="#about">About Me</a></li>
-                    <li><a href="#menu">Our Menu</a></li>
-                    <li><a href="#customise">Design Cake</a></li>
-                    <li><a href="#whatsapp-custom">Special Request</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#" @click.prevent="currentView = 'home'">Home</a></li>
+                    <li><a href="#menu" @click="currentView = 'home'">Menu</a></li>
+                    <li><a href="#gallery" @click="currentView = 'home'">Gallery</a></li>
+                    <li><a href="#" @click.prevent="currentView = 'policies'">Policies & FAQ</a></li>
+                    <li><a href="#" @click.prevent="showCareGuide = true">Cake Care</a></li>
                 </ul>
                 <div class="nav-actions">
                     <button class="cart-icon-btn" @click="isCartOpen = true">
@@ -39,181 +36,250 @@
             </div>
         </header>
 
-        <!-- Hero Welcome Section -->
-        <section class="hero">
-            <div class="hero-container">
-                <div class="hero-content">
-                    
-                    <!-- 1. What do you sell? -->
-                    <h1 style="font-size: 3rem; line-height: 1.2; margin-bottom: 1rem;">
-                        Custom Cakes for Birthdays, Anniversaries & Special Celebrations
-                    </h1>
-                    
-                    <!-- 2. Where are you located? -->
-                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.2rem; color: var(--honey-dark); font-weight: 600; margin-bottom: 0.8rem;">
-                        <i data-lucide="map-pin" style="color: var(--honey-gold);"></i>
-                        Located in Patna, Bihar
-                    </div>
-
-                    <!-- 24-Hour Freshly Baked Lead-Time Badge -->
-                    <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: #FFF5E1; color: var(--honey-dark); padding: 0.5rem 1rem; border-radius: 30px; font-weight: 600; font-size: 0.9rem; border: 1px solid rgba(229, 169, 60, 0.3); margin-bottom: 1.2rem;">
-                        <i data-lucide="clock" size="16" style="color: var(--honey-gold);"></i>
-                        <span><strong>Note:</strong> Please order 24 hours in advance for fresh baking!</span>
-                    </div>
-                    
-                    <p>Indulge in artisanal bakes crafted meticulously by Vishakha. From classic sponges to premium creations, we bring pure sweetness to your doorstep.</p>
-                    
-                    <!-- 3. How can they order? -->
-                    <div class="hero-buttons" style="margin-top: 2rem;">
-                        <a href="#whatsapp-custom" class="btn" style="background: #25D366; color: white; font-size: 1.1rem; padding: 1rem 2rem; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);">
-                            <i data-lucide="phone"></i> Order on WhatsApp
-                        </a>
-                        <a href="#menu" class="btn btn-secondary" style="font-size: 1.1rem; padding: 1rem 2rem;">
-                            Explore Menu
-                        </a>
-                    </div>
-                    
-                </div>
-                <div class="hero-image-container">
-                    <div class="hero-blob"></div>
-                    <div class="hero-showcase-frame">
-                        <img src="images/hero section.png" alt="Custom Cakes in Patna" class="hero-cake-img">
-                        <div class="hero-badge">
-                            <i data-lucide="sparkles" size="14" style="color: var(--honey-gold);"></i>
-                            <span>100% Pure Veg 🌱</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About the Baker Section -->
-        <section class="about-section" id="about" style="padding: 4rem 2rem; background: var(--honey-bg);">
-            <div style="max-width: 800px; margin: 0 auto; text-align: center; background: var(--white); padding: 3rem 2rem; border-radius: 24px; box-shadow: var(--shadow); border: 1px solid rgba(229, 169, 60, 0.15);">
-                
-                <h2 style="font-size: 2.2rem; margin-bottom: 1.2rem; color: var(--honey-dark); font-family: 'Playfair Display', serif;">
-                    Hi, I’m Vishakha 👩‍🍳
-                </h2>
-                
-                <p style="font-size: 1.1rem; color: #5c5243; line-height: 1.8; margin-bottom: 1.5rem;">
-                    I’m a home baker and mother who turned my love for baking into a cake business. Every cake is baked fresh in my home kitchen using quality ingredients and a lot of care. I specialize in eggless cakes and custom birthday cakes that are not only beautiful but also delicious.
-                </p>
-                
-                <p style="font-size: 1.2rem; font-weight: 600; color: var(--honey-dark); font-family: 'Playfair Display', serif; font-style: italic; margin-bottom: 2rem;">
-                    "For me, a cake is not just dessert—it becomes part of your family’s memories. ❤️"
-                </p>
-
-                <!-- 100% Freshly Baked Guarantee Callout -->
-                <div style="padding: 1.2rem 1.5rem; background: #FAF6EE; border-left: 4px solid var(--honey-gold); border-radius: 12px; text-align: left;">
-                    <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--honey-dark); font-size: 1.05rem; margin-bottom: 0.4rem;">
-                        <i data-lucide="sparkles" size="18" style="color: var(--honey-gold);"></i>
-                        100% Freshly Baked Guarantee
-                    </div>
-                    <p style="font-size: 0.95rem; color: #5c5243; line-height: 1.6; margin: 0;">
-                        We don't keep premade cakes sitting in a freezer. Preparation begins strictly after your order is taken, ensuring supreme freshness and taste. <strong>Please place your order at least 24 hours before your event!</strong>
-                    </p>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- Dynamic Menu Grid Section -->
-        <section class="menu-section" id="menu">
-            <div class="section-header">
-                <p>Handcrafted Treats</p>
-                <h2>From Vishakha's Oven</h2>
-            </div>
+        <!-- MAIN HOME VIEW -->
+        <div v-if="currentView === 'home'">
             
-            <!-- Category Filter Navigation -->
-            <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 2.5rem; flex-wrap: wrap;">
-                <button 
-                    v-for="category in uniqueCategories" 
-                    :key="category"
-                    @click="selectedCategory = category"
-                    :class="['btn', selectedCategory === category ? '' : 'btn-secondary']"
-                    style="padding: 0.5rem 1.2rem; border-radius: 50px; font-size: 0.9rem;"
-                >
-                    {{ category }}
-                </button>
-            </div>
-
-            <div class="menu-grid">
-                <div v-for="item in filteredMenuItems" :key="item.id" class="product-card">
-                    <div class="product-img-container">
-                        <img :src="item.image || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500'" :alt="item.name" class="product-cake-img">
+            <!-- Hero Welcome Section -->
+            <section class="hero">
+                <div class="hero-container">
+                    <div class="hero-content">
+                        <h1 class="hero-main-title">
+                            Custom Cakes for Birthdays, Anniversaries & Special Celebrations
+                        </h1>
+                        <div class="location-badge">
+                            <i data-lucide="map-pin"></i>
+                            Located in Patna, Bihar
+                        </div>
+                        <div class="notice-badge">
+                            <i data-lucide="clock" size="16"></i>
+                            <span><strong>Note:</strong> Please order 24 hours in advance for fresh baking!</span>
+                        </div>
+                        <p class="hero-subtitle">Indulge in artisanal bakes crafted meticulously by Vishakha. From classic sponges to premium creations, we bring pure sweetness to your doorstep.</p>
+                        <div class="hero-buttons">
+                            <a href="#menu" class="btn hero-explore-btn">
+                                Explore Menu
+                            </a>
+                        </div>
                     </div>
-                    <div class="product-info">
-                        <h3 class="product-title">{{ item.name }}</h3>
-                        <p class="product-desc">{{ item.desc }}</p>
-                        <div class="product-footer">
-                            <span class="product-price">₹{{ item.price }}/lb</span>
-                            <button class="add-to-cart-btn" @click="addToCart(item)">
-                                <i data-lucide="plus"></i>
-                            </button>
+                    <div class="hero-image-container">
+                        <div class="hero-blob"></div>
+                        <div class="hero-showcase-frame">
+                            <img src="images/hero section.png" alt="Custom Cakes in Patna" class="hero-cake-img" loading="eager">
+                            <div class="hero-badge">
+                                <i data-lucide="sparkles" size="14"></i>
+                                <span>100% Pure Veg 🌱</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Dynamic Custom Builder -->
-        <section class="customise-section" id="customise">
-            <div class="customise-container">
-                <div class="customise-card">
-                    <h2>Calculate Custom Cake Price</h2>
-                    <p style="margin-bottom: 1.5rem; color: #706553;">Build your standard menu custom cake step-by-step.</p>
+            <!-- Circular Shop By Occasion Section -->
+            <section class="occasions-section">
+                <div class="section-header" style="margin-bottom: 2rem;">
+                    <p>Celebrate Every Moment</p>
+                    <h2>Shop By Occasion</h2>
+                </div>
+                <div class="occasions-grid">
+                    <div v-for="occ in occasions" :key="occ.name" class="occasion-card" @click="filterByOccasion(occ.category)">
+                        <div class="occasion-icon-circle">
+                            <i :data-lucide="occ.icon" size="32"></i>
+                        </div>
+                        <span class="occasion-label">{{ occ.name }}</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dynamic Menu Grid Section -->
+            <section class="menu-section" id="menu">
+                <div class="section-header">
+                    <p>Handcrafted Treats</p>
+                    <h2>From Vishakha's Oven</h2>
+                </div>
+                
+                <!-- Live Search Bar -->
+                <div class="search-container">
+                    <i data-lucide="search" class="search-icon"></i>
+                    <input type="text" v-model="searchQuery" placeholder="Search for Truffle, Pineapple, Chocolate..." class="search-input">
+                </div>
+
+                <!-- Category Filter Navigation -->
+                <div class="category-filters">
+                    <button 
+                        v-for="category in uniqueCategories" 
+                        :key="category"
+                        @click="selectedCategory = category"
+                        :class="['btn', selectedCategory === category ? '' : 'btn-secondary']"
+                    >
+                        {{ category }}
+                    </button>
+                </div>
+
+                <!-- No Results Fallback -->
+                <div v-if="filteredMenuItems.length === 0" style="text-align: center; padding: 3rem; color: #a49885;">
+                    <i data-lucide="search-x" size="48" style="margin-bottom: 1rem; opacity: 0.5;"></i>
+                    <p>No cakes found matching "{{ searchQuery }}". Try a different flavor!</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="menu-grid">
+                    <div v-for="item in filteredMenuItems" :key="item.id" class="product-card" @click="openPDP(item)">
+                        <div class="product-img-container">
+                            <img :src="item.image || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500'" :alt="item.name" class="product-cake-img" loading="lazy">
+                            <!-- Bestseller Ribbon -->
+                            <div v-if="item.isBestseller" class="bestseller-ribbon">🌟 Bestseller</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">{{ item.name }}</h3>
+                            <p class="product-desc">{{ item.desc }}</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹{{ item.price }}/lb</span>
+                                <button class="add-to-cart-btn" @click.stop="openPDP(item)">
+                                    <i data-lucide="eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Custom Theme Gallery -->
+            <section class="gallery-section" id="gallery">
+                <div class="section-header">
+                    <p>Our Portfolio</p>
+                    <h2>Past Custom Creations</h2>
+                </div>
+                <div class="gallery-grid">
+                    <div v-for="(img, idx) in galleryImages" :key="idx" class="gallery-item">
+                        <img :src="img.src" :alt="img.title" loading="lazy">
+                        <div class="gallery-overlay">
+                            <span>{{ img.title }}</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dynamic Custom Builder -->
+            <section class="customise-section" id="customise">
+                <div class="customise-container">
+                    <div class="customise-card">
+                        <h2>Calculate Custom Cake Price</h2>
+                        <p class="customise-subtitle">Build your standard menu custom cake step-by-step.</p>
+                        <div class="form-group">
+                            <label>Select Base Flavor</label>
+                            <select v-model="customCake.flavor" class="form-control">
+                                <option v-for="item in menuItems" :value="item">{{ item.name }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Weight (Pounds): {{ customCake.weight }} lb</label>
+                            <input type="range" min="1" max="10" step="0.5" v-model.number="customCake.weight" class="form-control-range">
+                        </div>
+                        <div class="form-group">
+                            <label>Message on Cake</label>
+                            <input type="text" v-model="customCake.message" placeholder="e.g., Happy Birthday!" class="form-control-text">
+                        </div>
+                        <div class="custom-pricing">
+                            <span>Estimated Cost: <strong>₹{{ calculatedCustomPrice }}</strong></span>
+                            <button class="btn" @click="addCustomCakeToCart">Add Custom Cake</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About the Baker Section -->
+            <section class="about-section" id="about">
+                <div class="about-card">
+                    <h2>Hi, I’m Vishakha 👩‍🍳</h2>
+                    <p class="about-desc">
+                        I’m a home baker and mother who turned my love for baking into a cake business. Every cake is baked fresh in my home kitchen using quality ingredients and a lot of care. I specialize in eggless cakes and custom birthday cakes that are not only beautiful but also delicious.
+                    </p>
+                    <p class="about-quote">
+                        "For me, a cake is not just dessert—it becomes part of your family’s memories. ❤️"
+                    </p>
+                    <div class="guarantee-box">
+                        <div class="guarantee-title">
+                            <i data-lucide="sparkles" size="18"></i>
+                            100% Freshly Baked Guarantee
+                        </div>
+                        <p class="guarantee-text">
+                            We don't keep premade cakes sitting in a freezer. Preparation begins strictly after your order is taken, ensuring supreme freshness and taste. <strong>Please place your order at least 24 hours before your event!</strong>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+        </div>
+
+        <!-- POLICIES VIEW -->
+        <div v-if="currentView === 'policies'" class="policies-view">
+            <div class="policies-card">
+                <h2>Policies & FAQ</h2>
+                
+                <h3>🚚 Delivery Areas & Pickup</h3>
+                <p>We currently offer hand-delivery within Patna, Bihar. Delivery charges apply based on your exact pincode. You are also welcome to opt for "Store Pickup" directly from our studio in Krishi Nagar at no extra charge.</p>
+
+                <h3>⏱️ 24-Hour Lead Time</h3>
+                <p>To guarantee the freshest possible product, we do not keep baked cakes in stock. Every order is made from scratch upon payment confirmation. We strictly require a 24-hour notice for all standard menu items, and 48-72 hours for highly customized theme cakes.</p>
+
+                <h3>❌ Cancellations & Refunds</h3>
+                <p>Because our products are perishable and made to order, cancellations must be made at least 24 hours prior to the scheduled delivery/pickup time for a full refund. Cancellations made within 24 hours cannot be refunded.</p>
+            </div>
+        </div>
+
+        <!-- PRODUCT DETAIL PAGE (PDP) MODAL -->
+        <div class="modal-overlay" :class="{ show: activeProduct !== null }" @click="closePDP"></div>
+        <div class="pdp-modal" :class="{ show: activeProduct !== null }">
+            <button class="close-pdp-btn" @click="closePDP"><i data-lucide="x"></i></button>
+            <div class="pdp-content" v-if="activeProduct">
+                <div class="pdp-image-col">
+                    <img :src="activeProduct.image || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500'" :alt="activeProduct.name" loading="lazy">
+                </div>
+                <div class="pdp-info-col">
+                    <div class="pdp-badge">100% Pure Veg 🌱</div>
+                    <h2>{{ activeProduct.name }}</h2>
+                    <p class="pdp-desc">{{ activeProduct.desc }}</p>
                     
-                    <div class="form-group">
-                        <label>Select Base Flavor</label>
-                        <select v-model="customCake.flavor" class="form-control">
-                            <option v-for="item in menuItems" :value="item">{{ item.name }}</option>
+                    <div class="pdp-allergen">
+                        <i data-lucide="info" size="14"></i>
+                        <span><strong>Allergens:</strong> Handled in a kitchen that processes dairy, gluten, and tree nuts.</span>
+                    </div>
+
+                    <div class="form-group pdp-weight-selector">
+                        <label>Select Weight</label>
+                        <select v-model.number="selectedWeight" class="form-control">
+                            <option value="1">1 Pound - ₹{{ activeProduct.price * 1 }}</option>
+                            <option value="1.5">1.5 Pounds - ₹{{ activeProduct.price * 1.5 }}</option>
+                            <option value="2">2 Pounds - ₹{{ activeProduct.price * 2 }}</option>
+                            <option value="3">3 Pounds - ₹{{ activeProduct.price * 3 }}</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label>Weight (Pounds): {{ customCake.weight }} lb</label>
-                        <input type="range" min="1" max="10" step="0.5" v-model.number="customCake.weight" class="form-control-range">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Message on Cake</label>
-                        <input type="text" v-model="customCake.message" placeholder="e.g., Happy Birthday!" class="form-control-text">
-                    </div>
-
-                    <div class="custom-pricing">
-                        <span>Estimated Cost: <strong>₹{{ calculatedCustomPrice }}</strong></span>
-                        <button class="btn" @click="addCustomCakeToCart">Add Custom Cake</button>
+                    <div class="pdp-action-row">
+                        <button class="btn pdp-add-btn" @click="addActiveProductToCart">
+                            Add to Basket - ₹{{ activeProduct.price * selectedWeight }}
+                        </button>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- WhatsApp Custom Customer Request Section -->
-        <section class="whatsapp-request-section" id="whatsapp-custom">
-            <div class="whatsapp-container">
-                <div class="whatsapp-card">
-                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <i data-lucide="message-square" style="color: #25D366;"></i>
-                        <span style="color: var(--honey-gold); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">Bespoke Orders</span>
-                    </div>
-                    <h2>Have a Special Custom Request?</h2>
-                    <p style="margin-bottom: 1rem; color: #706553;">Describe your dream cake design, reference themes, flavors, or special shapes below. Submitting will send it straight to Vishakha on WhatsApp!</p>
-                    
-                    <div class="form-group">
-                        <label>Your Custom Cake Instructions</label>
-                        <textarea v-model="whatsappDescription" rows="5" class="form-control-text" placeholder="Describe your cake details here (e.g., 'I want a 2-tier theme cake with pastel pink flowers, vanilla flavor, shaped like a heart for a 5th birthday...')"></textarea>
-                    </div>
-
-                    <p style="font-size: 0.85rem; color: #8c7f6b; text-align: center; margin-bottom: 1rem;">
-                        ⚡ <em>Please submit requests at least 24 hours in advance as every cake is freshly prepared upon order placement.</em>
-                    </p>
-                    
-                    <button class="btn whatsapp-btn" @click="sendWhatsAppRequest">
-                        Send to WhatsApp <i data-lucide="send" size="16"></i>
-                    </button>
-                </div>
+        <!-- CARE GUIDE MODAL -->
+        <div class="modal-overlay" :class="{ show: showCareGuide }" @click="showCareGuide = false"></div>
+        <div class="payment-modal-box care-modal" :class="{ show: showCareGuide }">
+            <div class="modal-header">
+                <h3>Cake Care Instructions</h3>
+                <button class="close-modal-btn" @click="showCareGuide = false">&times;</button>
             </div>
-        </section>
+            <div class="modal-body">
+                <ul>
+                    <li>❄️ <strong>Storage:</strong> Store cream cakes in the refrigerator immediately upon arrival. Do not freeze.</li>
+                    <li>🌡️ <strong>Serving:</strong> For the best taste and softest sponge, remove the cake from the fridge 30-45 minutes before cutting.</li>
+                    <li>🚗 <strong>Transporting:</strong> Place the box flat on the floorboard of your car with the AC on. Do not place on car seats.</li>
+                    <li>🗓️ <strong>Shelf Life:</strong> Best consumed within 2-3 days for maximum freshness.</li>
+                </ul>
+            </div>
+        </div>
 
         <!-- Shopping Cart Drawer Panel -->
         <div class="cart-overlay" :class="{ open: isCartOpen }" @click="isCartOpen = false"></div>
@@ -226,39 +292,25 @@
             <div class="cart-items-container">
                 <div v-if="cart.length === 0" class="empty-cart-text">Your basket is currently empty.</div>
                 
-                <!-- Main Items List -->
                 <div v-for="(item, index) in cart" :key="index" class="cart-item">
                     <div class="cart-item-info">
                         <div class="cart-item-title">{{ item.name }} (x{{ item.quantity }})</div>
                         <div v-if="item.isCustom" class="cart-item-meta">
                             Size: {{ item.weight }}lb | Message: "{{ item.message || 'None' }}"
                         </div>
+                        <div v-else class="cart-item-meta">
+                            Size: {{ item.weight }}lb
+                        </div>
                         <div class="cart-item-price">₹{{ item.totalPrice }}</div>
                     </div>
                     <button class="remove-item-btn" @click="removeFromCart(index)"><i data-lucide="trash-2"></i></button>
-                </div>
-
-                <!-- Extras & Celebration Toppers Add-on Section -->
-                <div class="upsell-section" v-if="cart.length > 0">
-                    <h4>Add Extras & Celebrations Toppers</h4>
-                    <div class="upsell-grid">
-                        <div v-for="extra in extraAddons" :key="extra.id" class="upsell-card-item">
-                            <div class="upsell-info">
-                                <span class="upsell-name">{{ extra.name }}</span>
-                                <span class="upsell-price">+₹{{ extra.price }}</span>
-                            </div>
-                            <button class="upsell-add-btn" @click="addExtraToCart(extra)">
-                                <i data-lucide="plus" size="14"></i> Add
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
 
             <!-- Integrated Checkout Panel -->
             <div class="cart-footer" v-if="cart.length > 0">
                 <div class="cart-total-row">
-                    <span>Total Order Amount</span>
+                    <span>Total Amount</span>
                     <span>₹{{ cartTotal }}</span>
                 </div>
 
@@ -266,50 +318,77 @@
                     <button class="btn checkout-btn" @click="isCheckingOut = true">Proceed to Checkout</button>
                 </div>
 
-                <!-- Delivery Details Form Input Structure -->
                 <div v-else class="checkout-form">
-                    <h4>Delivery Details (Payment via UPI Only)</h4>
+                    <h4>How would you like to receive this?</h4>
+                    <div class="checkout-toggle-group">
+                        <button :class="{'active': checkoutDetails.method === 'delivery'}" @click="checkoutDetails.method = 'delivery'">Delivery</button>
+                        <button :class="{'active': checkoutDetails.method === 'pickup'}" @click="checkoutDetails.method = 'pickup'">Store Pickup</button>
+                    </div>
+
                     <input type="text" v-model="checkoutDetails.name" placeholder="Your Full Name" required>
                     <input type="tel" v-model="checkoutDetails.phone" placeholder="Contact Mobile Number" required>
-                    <textarea v-model="checkoutDetails.address" placeholder="Complete Delivery Address" required></textarea>
                     
-                    <button class="btn checkout-btn" @click="openPaymentModal">Pay Now</button>
+                    <div v-if="checkoutDetails.method === 'delivery'">
+                        <input type="text" v-model="checkoutDetails.pincode" placeholder="Delivery Pincode" @blur="checkPincode" required>
+                        <p v-if="pincodeError" class="error-msg">We only deliver within select Patna areas.</p>
+                        <textarea v-model="checkoutDetails.address" placeholder="Complete Delivery Address" required></textarea>
+                    </div>
+                    
+                    <label class="checkout-label">Select Date (Requires 24h notice)</label>
+                    <input type="date" v-model="checkoutDetails.date" :min="tomorrowDate" required>
+                    
+                    <label class="checkout-label">Preferred Time</label>
+                    <select v-model="checkoutDetails.time" required>
+                        <option value="10:00 AM - 1:00 PM">Morning (10:00 AM - 1:00 PM)</option>
+                        <option value="1:00 PM - 4:00 PM">Afternoon (1:00 PM - 4:00 PM)</option>
+                        <option value="4:00 PM - 8:00 PM">Evening (4:00 PM - 8:00 PM)</option>
+                    </select>
+                    
+                    <button class="btn checkout-btn checkout-pay-btn" @click="openPaymentModal" :disabled="pincodeError && checkoutDetails.method === 'delivery'">Proceed to Payment</button>
                     <button class="btn btn-link" @click="isCheckingOut = false">Back to Cart</button>
                 </div>
             </div>
         </div>
 
-        <!-- Dynamic Payment Popup Modal Box Overlay Container -->
+        <!-- Dynamic Payment Popup Modal -->
         <div class="modal-overlay" :class="{ show: showPaymentModal }" @click="closePaymentModal"></div>
         <div class="payment-modal-box" :class="{ show: showPaymentModal }">
             <div class="modal-header">
-                <h3>UPI Secure Transfer</h3>
-                <!-- CUT / CROSS BUTTON TO CLOSE AND RESET -->
+                <h3>Secure UPI Checkout</h3>
                 <button class="close-modal-btn" @click="closePaymentModal">&times;</button>
             </div>
             <div class="modal-body">
-                <p class="upi-instruction">Tap below to pay directly using any UPI App (GPay/PhonePe/Paytm):</p>
-                
-                <!-- DIRECT UPI APP REDIRECT BUTTON -->
-                <a :href="upiDeepLink" class="btn" style="background: #0070E0; color: white; width: 100%; justify-content: center; margin-bottom: 1.2rem; text-decoration: none; box-shadow: 0 4px 15px rgba(0,112,224,0.3);">
+                <a :href="upiDeepLink" class="btn upi-deep-btn">
                     <i data-lucide="smartphone"></i> Pay ₹{{ cartTotal }} via UPI App
                 </a>
-
-                <p class="upi-instruction" style="margin-bottom: 0.5rem; font-size: 0.8rem; color: #706553;">Or scan QR code manually:</p>
-                
+                <p class="upi-instruction">Or scan QR code manually:</p>
                 <div class="qr-container">
-                    <img src="images/scanner.jpeg" alt="UPI Payment QR Scanner" class="upi-qr-img">
+                    <img src="images/scanner.jpeg" alt="UPI Scanner" loading="lazy" class="upi-qr-img">
                 </div>
                 <div class="upi-id-display">
                     <span>UPI ID:</span>
                     <strong>{{ checkoutDetails.upiId }}</strong>
                 </div>
-                <div class="amount-badge">Total Amount: ₹{{ cartTotal }}</div>
-                
-                <!-- WHATSAPP CONFIRMATION BUTTON (STAYS VISIBLE UNTIL EXPLICITLY CLOSED) -->
-                <button class="btn paid-btn" @click="confirmPaidOrder">Paid / Send Order on WhatsApp</button>
+                <button class="btn paid-btn" @click="confirmPaidOrder">Paid / Send Order to WhatsApp</button>
             </div>
         </div>
+
+        <!-- Mobile Bottom App Navigation -->
+        <nav class="mobile-bottom-nav">
+            <a href="#" @click.prevent="currentView = 'home'" :class="{'active': currentView === 'home'}">
+                <i data-lucide="home"></i><span>Home</span>
+            </a>
+            <a href="#menu" @click="currentView = 'home'">
+                <i data-lucide="cake"></i><span>Menu</span>
+            </a>
+            <a href="#" @click.prevent="isCartOpen = true">
+                <i data-lucide="shopping-bag"></i><span>Cart</span>
+                <div class="mobile-cart-badge" v-if="cartCount > 0">{{ cartCount }}</div>
+            </a>
+            <a href="#" @click.prevent="trackOrder">
+                <i data-lucide="map-pin"></i><span>Track</span>
+            </a>
+        </nav>
 
         <!-- Studio Footer Info -->
         <footer id="contact">
@@ -317,19 +396,34 @@
                 <div class="footer-brand">
                     <div class="brand-title">Bee Cake</div>
                     <div class="brand-subtitle">By Vishakha</div>
-                    <p>Crafting delicious memories daily using premium local ingredients and artistic care.</p>
+                    <p>Crafting delicious memories daily using premium local ingredients.</p>
                 </div>
                 <div class="footer-column">
-                    <h4>Studio Location</h4>
-                    <p>Flat no -301, Ram Lakhan Residency,<br>90 Ft road, Krishi Nagar,<br>Patna, Bihar</p>
+                    <h4>Helpful Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" @click.prevent="currentView = 'policies'">Policies & FAQs</a></li>
+                        <li><a href="#" @click.prevent="showCareGuide = true">Cake Care Guide</a></li>
+                        <li><a href="#" @click.prevent="trackOrder">Track My Order</a></li>
+                    </ul>
                 </div>
                 <div class="footer-column">
-                    <h4>Order Helpline</h4>
-                    <p>Mobile: +91 7752891455<br>Email: bee.cake456@gmail.com<br>FSSAI: 20426001001997</p>
+                    <h4>Contact Us</h4>
+                    <p>Mobile: +91 7752891455<br>Patna, Bihar</p>
+                    <div class="fssai-badge">
+                        <i data-lucide="shield-check"></i>
+                        <span>FSSAI: 20426001001997</span>
+                    </div>
                 </div>
             </div>
             <div class="copyright">&copy; 2026 Bee Cake. Elegantly Curated by Vishakha.</div>
         </footer>
+
+        <!-- Floating WhatsApp Button -->
+        <a href="https://wa.me/917752891455?text=Hi%20Vishakha!%20I%20have%20a%20query%20about%20Bee%20Cake." target="_blank" class="floating-whatsapp" aria-label="Chat with us on WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.878-.788-1.47-1.761-1.643-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+            </svg>
+        </a>
     </div>
     <script src="menu-data.js"></script>
     <script src="app.js"></script>
