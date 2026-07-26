@@ -30,10 +30,10 @@ createApp({
 
         // Gallery State
         const galleryImages = ref([
-            { src: 'https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=500', title: 'Elegant Wedding Tier' },
-            { src: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500', title: 'Jungle Safari Kids Theme' },
-            { src: 'https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=500', title: 'Pastel Floral Anniversary' },
-            { src: 'https://images.unsplash.com/photo-1562777717-b6aff3ce3673?w=500', title: 'Loaded Chocolate Drip' }
+            { src: 'images/custom 1.png', title: 'Elegant Wedding Tier' },
+            { src: 'images/custom cake.png', title: 'Jungle Safari Kids Theme' },
+            { src: 'images/panda.png', title: 'Pastel Floral Anniversary' },
+            { src: 'images/custom 3.png', title: 'Loaded Chocolate Drip' }
         ]);
         
         const pincodeError = ref(false);
