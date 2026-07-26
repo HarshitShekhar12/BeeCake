@@ -4,15 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bee Cake | Premium Custom Cakes by Vishakha</title>
+    
+    <!-- WhatsApp & Social Media Preview Cards (Open Graph Tags) -->
+    <meta property="og:title" content="Bee Cake | Premium 100% Pure Veg Cakes by Vishakha">
+    <meta property="og:description" content="Order freshly baked custom cakes for Birthdays, Anniversaries & Special Celebrations in Patna. 100% Pure Veg & Eggless!">
+    <meta property="og:image" content="images/hero section.png">
+    <meta property="og:url" content="https://beecake.in">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons & Vue 3 CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="app" v-cloak>
+        <!-- Top Promotional Announcement Bar -->
+        <div class="announcement-bar">
+            <span>✨ 100% Pure Veg & Freshly Baked to Order! <strong>Order 24 Hours in Advance</strong> 🎂</span>
+            <a href="#menu" @click="currentView = 'home'" class="announcement-link">Explore Menu →</a>
+        </div>
+
         <!-- Sticky Navigation Header -->
         <header>
             <div class="nav-container">
@@ -126,7 +142,6 @@
                     <div v-for="item in filteredMenuItems" :key="item.id" class="product-card" @click="openPDP(item)">
                         <div class="product-img-container">
                             <img :src="item.image || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500'" :alt="item.name" class="product-cake-img" loading="lazy">
-                            <!-- Bestseller Ribbon -->
                             <div v-if="item.isBestseller" class="bestseller-ribbon">🌟 Bestseller</div>
                         </div>
                         <div class="product-info">
