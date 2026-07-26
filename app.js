@@ -50,7 +50,6 @@ createApp({
         });
 
         // 🔒 BACKGROUND SCROLL LOCK LOGIC
-        // This watches all modals. If any are open, it locks the background body from scrolling.
         watch([isCartOpen, showPaymentModal, showCareGuide, activeProduct], () => {
             if (isCartOpen.value || showPaymentModal.value || showCareGuide.value || activeProduct.value !== null) {
                 document.body.style.overflow = 'hidden';
