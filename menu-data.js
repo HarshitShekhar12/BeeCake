@@ -11,7 +11,7 @@ window.bakeryDatabase = {
     {
       "id": 1,
       "name": "Dry Baked Cake",
-      "price_per_pound": 300,
+      "price_per_pound": 299,
       "purely_veg": true,
       "description": "Simple & Pure moist sponge base. Perfect to enjoy with tea.",
       "category": "Dry Cakes",
@@ -22,7 +22,7 @@ window.bakeryDatabase = {
     {
       "id": 2,
       "name": "Vanilla Birthday Cake",
-      "price_per_pound": 350,
+      "price_per_pound": 349,
       "purely_veg": true,
       "description": "Classic, soft vanilla sponge layers frosted with light, sweet fresh cream.",
       "category": "Vanilla",
@@ -33,7 +33,7 @@ window.bakeryDatabase = {
     {
       "id": 3,
       "name": "Pineapple Fresh Fruit Cake",
-      "price_per_pound": 400,
+      "price_per_pound": 399,
       "purely_veg": true,
       "description": "Tropical sweetness featuring fresh pineapple chunks and juicy glaze layers.",
       "category": "Fruit",
@@ -44,7 +44,7 @@ window.bakeryDatabase = {
     {
       "id": 4,
       "name": "Chocolate Cream Cake",
-      "price_per_pound": 500,
+      "price_per_pound": 499,
       "purely_veg": true,
       "description": "Rich cocoa cake layers frosted with delicious silky chocolate whipped cream.",
       "category": "Chocolate",
@@ -55,7 +55,7 @@ window.bakeryDatabase = {
     {
       "id": 5,
       "name": "Butterscotch Anniversary Special",
-      "price_per_pound": 450,
+      "price_per_pound": 449,
       "purely_veg": true,
       "description": "Sweet and salty perfection highlighted with crisp, crunchy butterscotch nut toppings.",
       "category": "Butterscotch",
@@ -66,7 +66,7 @@ window.bakeryDatabase = {
     {
       "id": 6,
       "name": "Truffle Chocolate Wedding Tier",
-      "price_per_pound": 650,
+      "price_per_pound": 649,
       "purely_veg": true,
       "description": "Decadent, deep chocolate layers covered in a smooth dark chocolate ganache glaze.",
       "category": "Chocolate",
@@ -77,7 +77,7 @@ window.bakeryDatabase = {
     {
       "id": 7,
       "name": "Strawberry Celebration Cake",
-      "price_per_pound": 450,
+      "price_per_pound": 449,
       "purely_veg": true,
       "description": "Delightful pink cake layers infused with sweet strawberry compote and fresh frosting.",
       "category": "Fruit",
