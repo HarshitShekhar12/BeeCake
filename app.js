@@ -30,10 +30,10 @@ createApp({
 
         // Gallery State
         const galleryImages = ref([
-            { src: 'images/custom 1.jpg', title: 'Elegant Wedding Tier' },
-            { src: 'images/custom cake.png', title: 'Jungle Safari Kids Theme' },
-            { src: 'images/panda.png', title: 'Pastel Floral Anniversary' },
-            { src: 'images/custom 3.jpg', title: 'Loaded Chocolate Drip' }
+            { src: 'images/custom 1.jpg', title: 'SpiderMan Themed ' },
+            { src: 'images/custom cake.png', title: 'Cars Theme' },
+            { src: 'images/panda.png', title: 'Panda Cake' },
+            { src: 'images/custom 3.jpg', title: 'Aniversary Cake' }
         ]);
         
         const pincodeError = ref(false);
