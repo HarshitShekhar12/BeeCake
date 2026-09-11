@@ -30,7 +30,7 @@ createApp({
 
         // Gallery State
         const galleryImages = ref([
-            { src: 'images/custom 1.jpg', title: 'SpiderMan Themed ' },
+            { src: 'images/custom 1.jpg', title: 'SpiderMan Theme' },
             { src: 'images/custom cake.png', title: 'Cars Theme' },
             { src: 'images/panda.png', title: 'Panda Cake' },
             { src: 'images/custom 3.jpg', title: 'Aniversary Cake' }
