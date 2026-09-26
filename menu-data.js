@@ -84,6 +84,28 @@ window.bakeryDatabase = {
       "occasion": "Celebration",
       "image": "images/strawberry cake.png",
       "is_bestseller": false
+    },
+    {
+      "id": 8,
+      "name": "Blue Berry Cake",
+      "price_per_pound": 749,
+      "purely_veg": true,
+      "description": "Simple & Pure moist sponge base. Perfect to enjoy with tea.",
+      "category": "Fruit",
+      "occasion": "Celebration",
+      "image": "images/Blueberry.jpeg",
+      "is_bestseller": false
+    },
+    {
+      "id": 9,
+      "name": "Red Velvet Cake",
+      "price_per_pound": 849,
+      "purely_veg": true,
+      "description": "Simple & Pure moist sponge base. Perfect to enjoy with tea.",
+      "category": "Vanilla",
+      "occasion": "Celebration",
+      "image": "images/RedVelvet.jpeg",
+      "is_bestseller": false
     }
   ]
 };
